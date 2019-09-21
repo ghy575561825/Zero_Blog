@@ -3,7 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zero.blog.dao.UserDao">
-	<!-- 条件查询 -->
+
+	<!-- 用户的删除 -->
+	<delete id="deleteObject">
+		delete from t_user where id in
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+
+	<!-- 用户的更新 -->
+	<update id="updateObject">
+		update t_user 
+		set 
+		username=#{username},
+		password=#{password},
+		nickname=#{nickname},
+		update_time=now()
+		where id=#{id}
+	</update>
+
+	<!-- 用户的新增 -->
+	<insert id="insertObject">
+		insert into t_user 
+		(username,password,nickname,create_time,update_time)
+		values
+		(#{username},#{password},#{nickname},now(),now())
+	</insert>
+
+	<!-- 用户的条件查询 -->
 	<select id="findObjects" resultType="com.zero.blog.entity.User">
 		select * from t_user
 		<include refid="queryWhere"/>
@@ -11,7 +39,7 @@
 		limit #{startIndex},#{pageSize}
 	</select>
 	
-	<!-- 获取总记录数 -->
+	<!-- 获取用户的总记录数 -->
 	<select id="getRowCount" resultType="Integer">
 		select count(*) from t_user
 		<include refid="queryWhere"/>

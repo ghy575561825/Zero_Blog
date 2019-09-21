@@ -16,13 +16,34 @@ import com.zero.blog.entity.User;
 public interface UserDao {
 
 	/**
+	 * 用户的删除操作
+	 * @param id
+	 * @return
+	 */
+	public int deleteObject(@Param("ids")Integer...ids);
+	
+	/**
+	 * 用户的更新
+	 * @param user
+	 * @return
+	 */
+	public int updateObject(User user);
+	
+	/**
+	 * 用户的新增
+	 * @param user
+	 * @return
+	 */
+	public int insertObject(User user);
+	
+	/**
 	 * 获取用户的总记录数
 	 * @return
 	 */
 	public int getRowCount(@Param("username") String username);
 	
 	/**
-	 * 分页条件查询
+	 * 用户的分页条件查询
 	 * @param username
 	 * @param startIndex
 	 * @param pageSize
