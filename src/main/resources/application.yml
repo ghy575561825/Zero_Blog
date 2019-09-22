@@ -10,6 +10,9 @@ spring:
     url: jdbc:mysql:///db_blog_zero?serverTimezone=GMT%2B8&characterEncoding=UTF8
     username: root
     password: 123456
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
     
 #spring mybatis
 mybatis: 

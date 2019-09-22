@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 class="page-header"><span class="fa fa-comments nav-icon"> 评论管理</span></h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <form class="form-inline">
+                <a class="btn btn-info btn-replay" href="#" role="button"><span class="fa fa-edit"></span> 回复评论</a>
+                <a class="btn btn-danger" href="#" role="button"><span class="fa fa-trash-o"></span> 删除</a>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入关键字">
+                </div>
+                <button type="submit" class="btn btn-default"><span class="fa fa-search"></span></button>
+            </form>
+        </li>
+        <li class="list-group-item">
+            <table class="table table-striped">
+                <tr>
+                    <th><input type="checkbox" class="checkbox" name="" value=></th>
+                    <th>id</th>
+                    <th>email</th>
+                    <th>tel</th>
+                    <th>content</th>
+                </tr>
+            </table>
+        </li>
+        <li class="list-group-item">
+            <div class="btn-group" role="group">
+                <a class="btn btn-default" href="#" role="button">上一页</a>
+                <a class="btn btn-default" href="#" role="button">第4页,共多少页</a>
+                <a class="btn btn-default" href="#" role="button">下一页</a>
+            </div>
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+    $(".btn-replay").click(function () {
+        $("#mainContentId").load("comment_replay.html");
+    });
+</script>
