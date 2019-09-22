@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.blog.dao.BlogDao">
+	
+	<resultMap id="Blog" type="com.zero.blog.entity.Blog">
+		<id column="id" property="id"/>
+		<result column="c_id" property="cId"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="tags" property="tags"/>
+		<result column="image" property="image"/>
+		<result column="click_num" property="clickNum"/>
+		<result column="comment_num" property="commentNum"/>
+		<result column="is_up" property="isUp"/>
+		<result column="created_time" property="createdTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<!-- 博客的删除 -->
+	<delete id="deleteObject">
+		delete from t_blog where id in
+		<foreach collection="ids" item="id" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</delete>
+	
+	<!-- 博客的更新 -->
+	<update id="updateObject">
+		update t_blog set 
+		c_id=#{cId},title=#{title},content=#{content},tags=#{tags},image=#{image},click_num=#{clickNum},comment_num=#{commentNum},is_up=#{isUp},update_time=now() 
+		where id=#{id}
+	</update>
+	
+	<!-- 博客的增加 -->
+	<insert id="insertObject">
+		insert into t_blog 
+		(c_id,title,content,tags,image,click_num,comment_num,is_up,created_time,update_time) 
+		values
+		(#{cId},#{title},#{content},#{tags},#{image},#{clickNum},#{commentNum},#{isUp},now(),now())
+	</insert>
+	
+	<!-- 获取记录总数 -->
+	<select id="getRowCount" resultType="int">
+		select count(*) from t_blog
+		<include refid="queryWhere"></include>
+	</select>
+	
+	<!-- 博客条件查询 -->
+	<select id="findObjects" resultMap="Blog">
+		select 
+		id,c_id,title,content,tags,image,click_num,comment_num,is_up,created_time,update_time 
+		from t_blog
+		<include refid="queryWhere"/>
+		order by created_time desc
+		limit #{startIndex},#{pageSize}
+	</select>
+	<sql id="queryWhere">
+		<where>
+			<if test="title!=null and title!=''">
+				title like concat("%",#{title},"%")
+			</if>
+		</where>
+	</sql>
+</mapper>
