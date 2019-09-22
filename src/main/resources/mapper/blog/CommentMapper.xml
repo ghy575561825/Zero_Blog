@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.blog.dao.CommentDao">
+	
+	<resultMap id="Comment" type="com.zero.blog.entity.Comment">
+		<id column="id" property="id"/>
+		<result column="content" property="content"/>
+		<result column="email" property="email"/>
+		<result column="tel" property="tel"/>
+		<result column="created_time" property="createdTime"/>
+		<result column="created_user" property="createdUser"/>
+	</resultMap>
+
+	<!-- 条件查询 -->
+	<select id="findPageObjects" resultMap="Comment">
+		select * from t_comment
+		<include refid="queryWhere"/>
+		order by created_time
+		limit #{startIndex},#{pageSize}
+	</select>
+	
+	<!-- 获取总记录数 -->
+	<select id="getRowCount" resultType="Integer">
+		select count(*) from t_comment
+		<include refid="queryWhere"/>
+	</select>
+	
+	<sql id="queryWhere">
+		<where>
+			<if test="createdUser!=null and createdUser!=''">
+				created_user like concat("%",#{createdUser},"%")
+			</if>
+		</where>
+	</sql>
+	
+   <insert id="insertObject">
+           insert into t_comment
+           values(#{id},#{content},#{email},#{tel},now(),#{createdUser})
+   </insert>
+   
+   <delete id="deleteObject">
+       delete from t_comment
+       <where>
+         <foreach collection="ids"
+                  item="id">
+              or id=#{id}
+         </foreach>
+       </where>
+   </delete>
+   
+   <update id="updateObject">
+ 		update t_comment 
+ 		set content=#{content},
+ 			email=#{email},
+ 			tel=#{tel},
+ 			created_Time=now(),
+ 			created_User=#{createdUser}
+ 		where id=#{id}	
+ 	</update>
+	
+</mapper>
