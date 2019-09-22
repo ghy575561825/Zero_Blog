@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.zero.blog.dao.LinkDao">
+  
+  	<delete id="deleteLinkById">
+  		delete from t_db_link where link_id in
+  		<foreach collection="linkIds" open="(" close=")" item="linkIds" separator=",">
+  			#{linkIds}
+  		</foreach>
+  	</delete>
+  	
+  	<insert id="insertLink">
+  		insert into t_db_link (link_id,link_name,link_add,link_logo) 
+  		values(null,#{linkName},#{linkAdd},#{linkLogo})
+  	</insert>
+  	
+  	<update id="updateLinkById">
+  		update t_db_link set 
+  		link_name=#{linkName},link_add=#{linkAdd},link_logo=#{linkLogo} 
+  		where link_id=#{linkId}
+  	</update>
+  
+  </mapper>
