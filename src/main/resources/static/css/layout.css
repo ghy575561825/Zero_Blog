@@ -1,0 +1,24 @@
+nav{
+    background-image: url("../images/th.jpg");
+}
+body{
+    font-family: "微软雅黑","黑体","文泉驿正黑";
+}
+.row1{
+     /*设置内容多时的省略号*/
+     display: -webkit-box;
+     -webkit-box-orient: vertical;
+     /*设置显示的行数*/
+     -webkit-line-clamp:1;
+     /*超出范围不显示*/
+     overflow: hidden;
+}
+.row4{
+    /*设置内容多时的省略号*/
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /*设置显示的行数*/
+    -webkit-line-clamp:4;
+    /*超出范围不显示*/
+    overflow: hidden;
+}
