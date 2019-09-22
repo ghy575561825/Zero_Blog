@@ -17,7 +17,11 @@ public class LinkController {
 	
 	@Resource()
 	private LinkService linkService;
-	
+
+	/**
+	 * doFindAll
+	 * @return
+	 */
 	@RequestMapping("doFinaAll")
 	public JsonResult doFindAll(){
 		List<Link> list = linkService.findAll();
