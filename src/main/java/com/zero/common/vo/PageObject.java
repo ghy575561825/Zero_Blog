@@ -10,7 +10,7 @@ public class PageObject<T> implements Serializable{
 	//当前页的页码值
 	private Integer pageCurrent=1;
 	//页面大小
-	private Integer pageSize=3;
+	private Integer pageSize=6;
 	//总行数(通过查询获得)
 	private Integer rowCount=0;
 	//总页数(通过计算获得)

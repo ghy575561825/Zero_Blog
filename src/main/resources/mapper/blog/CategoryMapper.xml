@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zero.blog.dao.CategoryDao">
+	<!-- 条件查询 -->
+	<select id="findPageObjects" resultType="com.zero.blog.entity.Category">
+		select * from t_category
+		<include refid="queryWhere"/>
+		
+		limit #{startIndex},#{pageSize}
+	</select>
+	
+	<!-- 获取总记录数 -->
+	<select id="getRowCount" resultType="Integer">
+		select count(*) from t_category
+		<include refid="queryWhere"/>
+	</select>
+	
+	<sql id="queryWhere">
+		<where>
+			<if test="name!=null and name!=''">
+				name like concat("%",#{name},"%")
+			</if>
+		</where>
+	</sql>
+	
+	<insert id="insertObject">
+       insert into t_category
+       (id,name,url)
+       values
+       (#{id},#{name},#{url})
+   </insert>
+	
+
+	<update id="updateObject">
+ 		update t_category 
+ 		set 
+ 			name=#{name},
+ 			url=#{url}
+ 		where id=#{id}	
+ 	</update>
+</mapper>
